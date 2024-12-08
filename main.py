@@ -17,6 +17,7 @@ import uuid
 # Set up paths
 ANC_PATH = os.path.join('data', 'anchor')
 POS_PATH = os.path.join('data', 'positive')
+NEG_PATH = os.path.join('data', 'negative')
 
 # Establish a connection to the webcam
 # Number 0 is Iphone camera
@@ -56,3 +57,11 @@ while cap.isOpened():
 cap.release()
 # Close the image show frame
 cv2.destroyAllWindows()
+
+# Grabs 388 image directories
+# Specifically chose 388 because you want around the same for each
+# 388 is all of positive
+anchor = tf.data.Dataset.list_files(ANC_PATH+'\*.jpg').take(388) 
+positive = tf.data.Dataset.list_files(POS_PATH+'\*.jpg').take(388)
+negative = tf.data.Dataset.list_files(NEG_PATH+'\*.jpg').take(388)
+
