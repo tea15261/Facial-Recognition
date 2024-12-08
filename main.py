@@ -21,7 +21,7 @@ POS_PATH = os.path.join('data', 'positive')
 # Establish a connection to the webcam
 # Number 0 is Iphone camera
 # Number 1 is Mac webcam
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 while cap.isOpened():
     # ret returns true or false depending on if frame was read successfully
     # frame captures the frame from the video capture device, it's a numpy array which represents image data
