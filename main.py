@@ -4,12 +4,19 @@ import os
 import random
 import numpy as np
 from matplotlib import pyplot as plt
-plt.ion()
 
 # Import tensorflow dependencies - Functional API
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Layer, Conv2D, Dense, MaxPooling2D, Input, Flatten
 import tensorflow as tf
+
+# Import uuid library to generate unique image names
+#uuid (universally unique identifier) 
+import uuid
+
+# Set up paths
+ANC_PATH = os.path.join('data', 'anchor')
+POS_PATH = os.path.join('data', 'positive')
 
 # Establish a connection to the webcam
 # Number 0 is Iphone camera
@@ -25,6 +32,20 @@ while cap.isOpened():
     
     # Displays the captured image data onto the screen
     cv2.imshow("Image Feed", frame)
+    
+    # Capture anchors
+    if cv2.waitKey(1) & 0xFF == ord('a'):
+        # create the unique file path
+        img_name = os.path.join(ANC_PATH, '{}.jpg'.format(uuid.uuid1()))
+        # write out anchor image
+        cv2.imwrite(img_name, frame)
+    
+    # Capture positives
+    if cv2.waitKey(1) & 0xFF == ord('p'):
+        # create the unique file path
+        img_name = os.path.join(POS_PATH, '{}.jpg'.format(uuid.uuid1()))
+        # write out positive image
+        cv2.imwrite(img_name, frame)
     
     # Breaking gracefully
     # It checks if the ascii value 'q' is pressed and if so breaks the capture loop
