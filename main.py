@@ -76,4 +76,11 @@ def preprocess(file_path):
     # Normalize pixel values to [0, 1] range
     img = img / 255.0
     return img
-    
+
+# Combines anchor images, corresponding positive images, and label of 1 equal to number of anchors
+positives = tf.data.Dataset.zip((anchor, positive, tf.data.Dataset.from_tensor_slices(tf.ones(len(anchor)))))
+# Combines anchor images, corresponding negative images, and label of 0 equal to number of anchors
+negatives = tf.data.Dataset.zip((anchor, negative, tf.data.Dataset.from_tensor_slices(tf.zeros(len(anchor)))))
+#combines the two datasets
+data = positives.concatenate(negatives)
+
