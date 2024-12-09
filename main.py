@@ -71,7 +71,7 @@ def preprocess(file_path):
     byte_img = tf.io.read_file(file_path)
     # Load in image as a tensor
     img = tf.io.decode_jpeg(byte_img)
-    # Resize the image tensor to 100x100 pixels
+    # Resize the image tensor to 100x100x3
     img = tf.image.resize(img, (100, 100))
     # Normalize pixel values to [0, 1] range
     img = img / 255.0
