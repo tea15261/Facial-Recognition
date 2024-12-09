@@ -65,3 +65,15 @@ anchor = tf.data.Dataset.list_files(ANC_PATH+'\*.jpg').take(388)
 positive = tf.data.Dataset.list_files(POS_PATH+'\*.jpg').take(388)
 negative = tf.data.Dataset.list_files(NEG_PATH+'\*.jpg').take(388)
 
+# Scale and resize image
+def preprocess(file_path):
+    # Read image as a byte string
+    byte_img = tf.io.read_file(file_path)
+    # Load in image as a tensor
+    img = tf.io.decode_jpeg(byte_img)
+    # Resize the image tensor to 100x100 pixels
+    img = tf.image.resize(img, (100, 100))
+    # Normalize pixel values to [0, 1] range
+    img = img / 255.0
+    return img
+    
